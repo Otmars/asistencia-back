@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
@@ -43,18 +44,14 @@ export class Asignatura {
   @Column()
   paralelo: string;
 
-  @Column('time', { name: 'hora_entrada' , nullable:false})
+  @Column('time', { name: 'hora_entrada', nullable: false })
   hora_entrada: Date;
 
-  @Column('time', { name: 'hora_salida' ,nullable:false})
+  @Column('time', { name: 'hora_salida', nullable: false })
   hora_salida: Date;
 
-  @ManyToOne(() => Docente, (docente) => docente.asignatura)
-  docente: Docente;
-
-  @ManyToOne(() => Hospital, (hospital) => hospital.asignatura)
-  hospital: Hospital
   
+
   @DeleteDateColumn()
   deletedAt: Date;
 
@@ -72,4 +69,11 @@ export class Asignatura {
 
   @OneToMany(() => Calificacion, (calificacion) => calificacion.asignatura)
   calificaion: Calificacion[];
+
+  @ManyToOne(() => Docente, (docente) => docente.asignatura)
+  docente: Docente;
+
+  @ManyToOne(() => Hospital, (hospital) => hospital.asignatura)
+  @JoinColumn({name:'hospital_id'})
+  hospitalid: Hospital;
 }
