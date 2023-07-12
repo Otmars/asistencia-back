@@ -26,6 +26,7 @@ import { CalificacionEstudiante } from './calificacion/entities/calificacionEstu
 import { HospitalModule } from './hospital/hospital.module';
 import { Hospital } from './hospital/entities/hospital.entity';
 import { AsistenciaModule } from './asistencia/asistencia.module';
+import { Asistencia } from './asistencia/entities/asistencia.entity';
 
 @Module({
   imports: [
@@ -49,7 +50,8 @@ import { AsistenciaModule } from './asistencia/asistencia.module';
         CompetenciaEstudiante,
         Calificacion,
         CalificacionEstudiante,
-        Hospital
+        Hospital,
+        Asistencia
       ],
       synchronize: true,
     }),

@@ -17,6 +17,7 @@ import {
 import { AsignaturaToCompetencia } from './asignaturaCompetencia.entity';
 import { Calificacion } from 'src/calificacion/entities/calificacion.entity';
 import { Hospital } from 'src/hospital/entities/hospital.entity';
+import { Asistencia } from 'src/asistencia/entities/asistencia.entity';
 
 @Entity({ name: 'asignatura' })
 export class Asignatura {
@@ -70,10 +71,14 @@ export class Asignatura {
   @OneToMany(() => Calificacion, (calificacion) => calificacion.asignatura)
   calificaion: Calificacion[];
 
+  @OneToMany(() => Asistencia, (asistencia) => asistencia.asignatura)
+  asistencia: Asistencia[];
+
   @ManyToOne(() => Docente, (docente) => docente.asignatura)
   docente: Docente;
 
   @ManyToOne(() => Hospital, (hospital) => hospital.asignatura)
-  @JoinColumn({name:'hospital_id'})
-  hospitalid: Hospital;
+  hospital: Hospital;
+  // @JoinColumn({name:'hospital_id'})
+  
 }

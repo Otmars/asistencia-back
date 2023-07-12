@@ -15,6 +15,6 @@ export class Hospital {
   @Column()
   descripcion: string;
 
-  @OneToMany(()=>Asignatura, (asignatura)=>asignatura.hospitalid)
+  @OneToMany(()=>Asignatura, (asignatura)=>asignatura.hospital)
   asignatura : Asignatura[]
 }
