@@ -24,7 +24,7 @@ export class AsignaturaService {
     const newAsignatura = await this.asignaturaService.create(
       createAsignaturaDto,
     );
-    console.log(createAsignaturaDto);
+    console.log(newAsignatura);
     
     await this.asignaturaService.save(newAsignatura);
     return newAsignatura;

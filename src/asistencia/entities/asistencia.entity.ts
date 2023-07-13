@@ -9,16 +9,27 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+
+export enum Estados {
+  ENTRADA = "Entrada",
+  SALIDA = "Salida"
+}
+
 @Entity()
 export class Asistencia {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false ,type: "enum", enum:Estados})
+  estado: Estados;
+
+  @Column({ nullable: false })
   fecha_hora_registro: Date;
 
-  @Column()
+  @Column({ nullable: false })
   ubicacion_registro: string;
+
+
 
   @DeleteDateColumn()
   deletedAt: Date;
@@ -29,6 +40,8 @@ export class Asistencia {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => Asignatura, (asignatura) => asignatura.asistencia)
+  @ManyToOne(() => Asignatura, (asignatura) => asignatura.asistencia, {
+    nullable: false,
+  })
   asignatura: Asignatura;
 }

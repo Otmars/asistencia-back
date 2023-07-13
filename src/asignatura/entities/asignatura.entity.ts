@@ -74,10 +74,10 @@ export class Asignatura {
   @OneToMany(() => Asistencia, (asistencia) => asistencia.asignatura)
   asistencia: Asistencia[];
 
-  @ManyToOne(() => Docente, (docente) => docente.asignatura)
+  @ManyToOne(() => Docente, (docente) => docente.asignatura,{nullable:false})
   docente: Docente;
 
-  @ManyToOne(() => Hospital, (hospital) => hospital.asignatura)
+  @ManyToOne(() => Hospital, (hospital) => hospital.asignatura,{nullable:false})
   hospital: Hospital;
   // @JoinColumn({name:'hospital_id'})
   

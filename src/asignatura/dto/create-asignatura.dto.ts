@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Docente } from 'src/docente/entities/docente.entity';
+import { Hospital } from 'src/hospital/entities/hospital.entity';
 
 export class CreateAsignaturaDto {
 
@@ -29,4 +30,7 @@ export class CreateAsignaturaDto {
 
   @ApiProperty()
   docente: Docente;
+
+  @ApiProperty()
+  hospital: Hospital;
 }

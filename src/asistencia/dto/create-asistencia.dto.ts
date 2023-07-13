@@ -15,4 +15,5 @@ export class CreateAsistenciaDto {
 
     @ApiProperty({example:"anatomia1", description:"crear antes la materia o asignatura"})
     asignatura : Asignatura
+
 }

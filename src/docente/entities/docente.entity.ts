@@ -15,5 +15,5 @@ export class Docente {
     iduser:string
 
     @OneToMany(()=>Asignatura, (asignatura)=>asignatura.docente)
-    asignatura = Asignatura
+    asignatura:Asignatura[]
 }
