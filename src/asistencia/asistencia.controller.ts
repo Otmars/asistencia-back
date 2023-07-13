@@ -19,7 +19,7 @@ export class AsistenciaController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.asistenciaService.findOne(+id);
+    return this.asistenciaService.findOne(id);
   }
 
   @Patch(':id')

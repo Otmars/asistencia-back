@@ -87,9 +87,11 @@ export class AsignaturaService {
     return this.asignaturaService.save(updateAsignatura);
   }
 
-  remove(id: number) {
-    return this.asignaturaService.softRemove({ id });
+  async remove(id: number) {
+    return await this.asignaturaService.softRemove({ id });
   }
+
+
   async findAsignaturaDocenteOne(id: string) {
     const consulta = await this.asignaturaService
       .createQueryBuilder('asignatura')

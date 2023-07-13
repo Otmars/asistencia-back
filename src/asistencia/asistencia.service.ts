@@ -35,8 +35,10 @@ export class AsistenciaService {
         'https://timeapi.io/api/Time/current/zone?timeZone=America/La_Paz',
       ),
     );
+    
     const hora = respuesta.data.dateTime;
     console.log(hora);
+    createasistenciaDto.fecha_hora_registro=hora
     const newRegistro = await this.asistenciaRepository.create(createasistenciaDto);
 
     return await this.asistenciaRepository.save(newRegistro);
@@ -46,7 +48,17 @@ export class AsistenciaService {
     return `This action returns all asistencia`;
   }
 
-  async findOne(id: number) {}
+  async findOne(id: string) {
+
+    const consulta =this.asistenciaRepository.createQueryBuilder('asistencia')
+    .select(['asistencia', 'a','d','u'])
+    .where('d.iduser = :id', { id }) // consulta chida
+    .leftJoin('asistencia.asignatura', 'a')
+    .leftJoin('a.docente', 'd')
+    .leftJoin('d.iduser', 'u')
+    .getMany();
+    return consulta
+  }
 
   update(id: number, updateAsistenciaDto: UpdateAsistenciaDto) {
     return `This action updates a #${id} asistencia`;
