@@ -95,8 +95,10 @@ export class AsignaturaService {
   async findAsignaturaDocenteOne(id: string) {
     const consulta = await this.asignaturaService
       .createQueryBuilder('asignatura')
+      .select(['asignatura','h'])
       .where('u.id = :id', { id }) // consulta chida
       .leftJoin('asignatura.docente', 'd')
+      .leftJoin('asignatura.hospital', 'h')
       .leftJoin('d.iduser', 'u')
       .getMany();
 
