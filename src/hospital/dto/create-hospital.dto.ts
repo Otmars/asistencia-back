@@ -8,7 +8,10 @@ export class CreateHospitalDto {
   nombre: string;
 
   @ApiProperty()
-  ubicacion: string;
+  latitud: number;
+
+  @ApiProperty()
+  longitud: number;
 
   @ApiProperty()
   descripcion: string;

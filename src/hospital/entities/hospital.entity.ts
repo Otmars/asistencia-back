@@ -9,8 +9,11 @@ export class Hospital {
   @Column()
   nombre: string;
 
-  @Column()
-  ubicacion: string;
+  @Column({type: "decimal"})
+  latitud: number;
+
+  @Column({type: "decimal"})
+  longitud: number;
 
   @Column()
   descripcion: string;

@@ -40,7 +40,8 @@ export class AsistenciaService {
     console.log(hora);
     createasistenciaDto.fecha_hora_registro=hora
     const newRegistro = await this.asistenciaRepository.create(createasistenciaDto);
-
+    console.log(newRegistro);
+    
     return await this.asistenciaRepository.save(newRegistro);
   }
 
@@ -48,14 +49,29 @@ export class AsistenciaService {
     return `This action returns all asistencia`;
   }
 
-  async findOne(id: string) {
-
-    const consulta =this.asistenciaRepository.createQueryBuilder('asistencia')
-    .select(['asistencia', 'a','d','u'])
+  async findOneLast(id:string){
+    const consulta = await this.asistenciaRepository.createQueryBuilder('asistencia')
+    .select(['asistencia', 'a'])
     .where('d.iduser = :id', { id }) // consulta chida
     .leftJoin('asistencia.asignatura', 'a')
     .leftJoin('a.docente', 'd')
     .leftJoin('d.iduser', 'u')
+    .limit(1)
+    .orderBy('asistencia.id','DESC')
+    .getMany();
+    return consulta
+  }
+
+  async findOne(id: string) {
+
+    const consulta =this.asistenciaRepository.createQueryBuilder('asistencia')
+    .select(['asistencia', 'a','d','u', 'h'])
+    .where('d.iduser = :id', { id }) // consulta chida
+    .leftJoin('asistencia.asignatura', 'a')
+    .leftJoin('a.docente', 'd')
+    .leftJoin('a.hospital', 'h')
+    .leftJoin('d.iduser', 'u')
+    .orderBy('asistencia.id','DESC')
     .getMany();
     return consulta
   }

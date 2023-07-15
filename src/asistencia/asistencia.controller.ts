@@ -16,7 +16,10 @@ export class AsistenciaController {
   findAll() {
     return this.asistenciaService.findAll();
   }
-
+  @Get(':id/last')
+  findOneLast(@Param('id') id: string) {
+    return this.asistenciaService.findOneLast(id);
+  }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.asistenciaService.findOne(id);

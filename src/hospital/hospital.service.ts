@@ -14,7 +14,7 @@ export class HospitalService {
 
   async create(createHospitalDto: CreateHospitalDto) {
     const newHospital = await this.hospitalRepository.create(createHospitalDto)
-   console.log(newHospital);
+    
    
     return this.hospitalRepository.save(newHospital)
   }
