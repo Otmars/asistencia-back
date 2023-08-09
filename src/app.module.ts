@@ -53,6 +53,7 @@ import { Asistencia } from './asistencia/entities/asistencia.entity';
         Hospital,
         Asistencia
       ],
+      extra:{"ssl":"true"},
       synchronize: true,
     }),
     UserModule,
