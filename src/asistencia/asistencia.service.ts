@@ -37,11 +37,8 @@ export class AsistenciaService {
     );
     
     const hora = respuesta.data.dateTime;
-    console.log(hora);
     createasistenciaDto.fecha_hora_registro=hora
     const newRegistro = await this.asistenciaRepository.create(createasistenciaDto);
-    console.log(newRegistro);
-    
     return await this.asistenciaRepository.save(newRegistro);
   }
 

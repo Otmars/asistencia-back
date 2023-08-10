@@ -9,8 +9,8 @@ import { Profile } from './entities/profile.entity';
 import { compare, hash } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt/dist';
 import { Docente } from 'src/docente/entities/docente.entity';
-import { Estudiante } from 'src/estudiante/entities/estudiante.entity';
-import { Roles } from './entities/roles.entity';
+
+
 import { LoginUserDto } from './dto/login-user.dto';
 
 @Injectable()
@@ -19,8 +19,6 @@ export class UserService {
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Profile) private profileRepository: Repository<Profile>,
     @InjectRepository(Docente) private docenteRepository: Repository<Docente>,
-    @InjectRepository(Estudiante)
-    private estudianteRepository: Repository<Estudiante>,
     private jwtService: JwtService, // @InjectRepository(Docente) private docenteRepository: Repository<Docente>,
   ) {}
   async create(createUserDto: CreateUserDto) {
@@ -64,13 +62,9 @@ export class UserService {
     // console.log(JSON.stringify(savedUser.rol) == "1");
 
     if (JSON.stringify(savedUser.rol) == '1') {
-      console.log('entra');
-
       this.docenteRepository.save(id);
     }
-    if (JSON.stringify(savedUser.rol) == '3') {
-      this.estudianteRepository.save(datosEstudiante);
-    }
+
     // }
     // if (savedUser.rol.nombreRol == "estudiante") {
     //   this.estudianteRepository.save(id)

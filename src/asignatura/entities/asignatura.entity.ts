@@ -1,4 +1,4 @@
-import { Competencia } from 'src/competencia/entities/competencia.entity';
+
 import { Docente } from 'src/docente/entities/docente.entity';
 import {
   Column,
@@ -14,8 +14,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { AsignaturaToCompetencia } from './asignaturaCompetencia.entity';
-import { Calificacion } from 'src/calificacion/entities/calificacion.entity';
 import { Hospital } from 'src/hospital/entities/hospital.entity';
 import { Asistencia } from 'src/asistencia/entities/asistencia.entity';
 
@@ -62,14 +60,6 @@ export class Asignatura {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(
-    () => AsignaturaToCompetencia,
-    (asignaturaCompetencia) => asignaturaCompetencia.asignatura,
-  )
-  asignaturaCompetencia: AsignaturaToCompetencia[];
-
-  @OneToMany(() => Calificacion, (calificacion) => calificacion.asignatura)
-  calificaion: Calificacion[];
 
   @OneToMany(() => Asistencia, (asistencia) => asistencia.asignatura)
   asistencia: Asistencia[];

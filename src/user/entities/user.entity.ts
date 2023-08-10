@@ -1,4 +1,4 @@
-import { Post } from "src/post/entities/post.entity";
+
 import { Entity,Column,PrimaryGeneratedColumn, JoinColumn,OneToOne, OneToMany, ManyToOne, DeleteDateColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { Roles } from "./roles.entity";
 
@@ -32,10 +32,10 @@ export class User {
   @Column({type:"varchar",default:null})
   email: string;
 
-  @Column({ type: 'int', width: 8 })
+  @Column({ type: 'int', width: 8 , nullable:true})
   telefono: string;
 
-  @Column('varchar')
+  @Column({nullable:true})
   direccion: string;
 
   @Column({ type: 'int', width: 8 })

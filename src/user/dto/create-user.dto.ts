@@ -4,13 +4,13 @@ import { Roles } from '../entities/roles.entity';
 
 
 export class CreateUserDto {
-  @ApiProperty({ description: 'Crea un nuevo usuario', minimum: 1})
+
   username: string;
 
-  @ApiProperty()
+
   password: string;
 
-  @ApiProperty()
+  @ApiProperty({default:1})
   rol:  Roles;
 
   @ApiProperty()

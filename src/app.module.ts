@@ -4,25 +4,12 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/entities/user.entity';
-import { PostModule } from './post/post.module';
-
-import { CompetenciaModule } from './competencia/competencia.module';
 import { AsignaturaModule } from './asignatura/asignatura.module';
-import { EstudianteModule } from './estudiante/estudiante.module';
 import { DocenteModule } from './docente/docente.module';
-import { CalificacionModule } from './calificacion/calificacion.module';
-
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Docente } from './docente/entities/docente.entity';
 import { Asignatura } from './asignatura/entities/asignatura.entity';
 import { Roles } from './user/entities/roles.entity';
-import { Estudiante } from './estudiante/entities/estudiante.entity';
-import { Competencia } from './competencia/entities/competencia.entity';
-import { AsignaturaToCompetencia } from './asignatura/entities/asignaturaCompetencia.entity';
-import { Inscripciones } from './estudiante/entities/inscripcionesEstudiante.entity';
-import { CompetenciaEstudiante } from './estudiante/entities/competenciasEstudiante.entity';
-import { Calificacion } from './calificacion/entities/calificacion.entity';
-import { CalificacionEstudiante } from './calificacion/entities/calificacionEstudiante.entity';
 import { HospitalModule } from './hospital/hospital.module';
 import { Hospital } from './hospital/entities/hospital.entity';
 import { AsistenciaModule } from './asistencia/asistencia.module';
@@ -38,31 +25,13 @@ import { Asistencia } from './asistencia/entities/asistencia.entity';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [
-        User,
-        Docente,
-        Asignatura,
-        Roles,
-        Estudiante,
-        Competencia,
-        AsignaturaToCompetencia,
-        Inscripciones,
-        CompetenciaEstudiante,
-        Calificacion,
-        CalificacionEstudiante,
-        Hospital,
-        Asistencia
-      ],
-      extra:{"ssl":"true"},
+      entities: [User, Docente, Asignatura, Roles, Hospital, Asistencia],
+      extra:{ssl:process.env.DATABASE_SSL == 'true'},
       synchronize: true,
     }),
     UserModule,
-    PostModule,
-    CompetenciaModule,
     AsignaturaModule,
-    EstudianteModule,
     DocenteModule,
-    CalificacionModule,
     HospitalModule,
     AsistenciaModule,
   ],

@@ -18,6 +18,11 @@ export class CreateAsignaturaDto {
 
   // @ApiProperty()
   // RegNivelEst: string;
+  @ApiProperty()
+  hora_entrada: Date;
+
+  @ApiProperty()
+  hora_salida: Date;
 
   @ApiProperty()
   nMeses: number;

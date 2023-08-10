@@ -5,47 +5,28 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Asignatura } from './entities/asignatura.entity';
 import { Repository } from 'typeorm';
 import { async } from 'rxjs';
-import { AsignaturaToCompetencia } from './entities/asignaturaCompetencia.entity';
+
 import { competenciaAsignatura } from './dto/competencia-asignatura.dto';
-import { Inscripciones } from 'src/estudiante/entities/inscripcionesEstudiante.entity';
+
 
 @Injectable()
 export class AsignaturaService {
   constructor(
     @InjectRepository(Asignatura)
     private asignaturaService: Repository<Asignatura>,
-    @InjectRepository(AsignaturaToCompetencia)
-    private asiToComService: Repository<AsignaturaToCompetencia>,
-    @InjectRepository(Inscripciones)
-    private inscripcionService: Repository<Inscripciones>,
   ) {}
 
   async create(createAsignaturaDto: CreateAsignaturaDto) {
     const newAsignatura = await this.asignaturaService.create(
       createAsignaturaDto,
     );
-    console.log(newAsignatura);
-    
     await this.asignaturaService.save(newAsignatura);
     return newAsignatura;
   }
 
-  async asignaturaToCompetencia(body: competenciaAsignatura) {
-    const foundrelation = await this.asiToComService.count({ where: [body] });
-    if (foundrelation) {
-      return new HttpException('La relacion ya existe', HttpStatus.CONFLICT);
-    }
-    const newRelation = this.asiToComService.create(body);
-    return this.asiToComService.save(newRelation);
-  }
 
-  async getasignaturaToCompetencia(id: number) {
-    return await this.asiToComService.find({
-      where: { asignaturaId: id },
-      // relations: ['asignatura','competencia'],
-      relations: ['competencia'],
-    });
-  }
+
+
 
   async findAll() {
     const consulta = await this.asignaturaService
@@ -105,16 +86,4 @@ export class AsignaturaService {
     return consulta;
   }
 
-  async inscritosAsignatura(id: number) {
-    // const consulta = await this.inscripcionService.find({where:{asignaturaId:id},relations:['estudiante']})
-    const consulta = await this.inscripcionService
-      .createQueryBuilder('inscripcion')
-      .select(['inscripcion', 'e.id', 'u.id', 'u.nombres','u.apellidoPaterno','u.apellidoMaterno','u.ci','u.email' , 'a']) // consulta chida
-      .where({asignaturaId:id})
-      .innerJoin('inscripcion.asignatura', 'a')
-      .innerJoin('inscripcion.estudiante', 'e')
-      .innerJoin('e.iduser', 'u')
-      .getMany();
-    return consulta;
-  }
 }
