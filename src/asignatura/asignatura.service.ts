@@ -31,9 +31,10 @@ export class AsignaturaService {
   async findAll() {
     const consulta = await this.asignaturaService
       .createQueryBuilder('asignatura')
-      .select(['asignatura', 'd.id', 'u.id', 'u.nombres']) // consulta chida
+      .select(['asignatura', 'd.id', 'u.id', 'u.nombres' ,'h']) // consulta chida
       .leftJoin('asignatura.docente', 'd')
       .leftJoin('d.iduser', 'u')
+      .leftJoin('asignatura.hospital', 'h')
       .getMany();
     return consulta;
   }
@@ -45,11 +46,12 @@ export class AsignaturaService {
     }
     const consulta = await this.asignaturaService
       .createQueryBuilder('asignatura')
-      .select(['asignatura', 'd.id', 'u.id', 'u.nombres'])
+      .select(['asignatura', 'd.id', 'u.id', 'u.nombres','h'])
       // .select(['asignatura.nombre', 'asignatura.id', 'd.id', 'u.id','u.nombres'])
       .where('asignatura.id = :id', { id }) // consulta chida
       .leftJoin('asignatura.docente', 'd')
       .leftJoin('d.iduser', 'u')
+      .leftJoin('asignatura.hospital', 'h')
       .getMany();
     return consulta;
   }

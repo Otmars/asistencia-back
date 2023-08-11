@@ -1,13 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { AsistenciaService } from './asistencia.service';
 import { CreateAsistenciaDto } from './dto/create-asistencia.dto';
 import { UpdateAsistenciaDto } from './dto/update-asistencia.dto';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/user/guardjwt';
 @ApiTags('asistencia')
 @ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('asistencia')
 export class AsistenciaController {
   constructor(private readonly asistenciaService: AsistenciaService) {}
+  
 
   @Post()
   create(@Body() createAsistenciaDto: CreateAsistenciaDto) {
@@ -18,10 +21,13 @@ export class AsistenciaController {
   findAll() {
     return this.asistenciaService.findAll();
   }
+
+
   @Get(':id/last')
   findOneLast(@Param('id') id: string) {
     return this.asistenciaService.findOneLast(id);
   }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.asistenciaService.findOne(id);
