@@ -15,7 +15,7 @@ export class Hospital {
   @Column({type: "decimal"})
   longitud: number;
 
-  @Column()
+  @Column({nullable:true})
   descripcion: string;
 
   @OneToMany(()=>Asignatura, (asignatura)=>asignatura.hospital)
