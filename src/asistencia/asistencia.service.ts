@@ -20,57 +20,63 @@ export class AsistenciaService {
   ) {}
 
   async create(createasistenciaDto: CreateAsistenciaDto) {
-    const asignaturaId =  await createasistenciaDto.asignatura.id;
-    const findAsignatura = await this.asignaturaRepository.findOne({where:{id:asignaturaId}})
+    const asignaturaId = await createasistenciaDto.asignatura.id;
+    const findAsignatura = await this.asignaturaRepository.findOne({
+      where: { id: asignaturaId },
+    });
 
-    if (!findAsignatura ) {
+    if (!findAsignatura) {
       return new HttpException(
         'Asignatura no existeeeeee',
         HttpStatus.NOT_FOUND,
       );
     }
-    
+
     const respuesta = await firstValueFrom(
       this.httpService.get(
         'https://timeapi.io/api/Time/current/zone?timeZone=America/La_Paz',
       ),
     );
-    
+
     const hora = respuesta.data.dateTime;
-    createasistenciaDto.fecha_hora_registro=hora
-    const newRegistro = await this.asistenciaRepository.create(createasistenciaDto);
+    createasistenciaDto.fecha_hora_registro = hora;
+    const newRegistro = await this.asistenciaRepository.create(
+      createasistenciaDto,
+    );
     return await this.asistenciaRepository.save(newRegistro);
   }
 
-  findAll() {
-    return `This action returns all asistencia`;
+  async findAll() {
+    
+    return await this.asistenciaRepository.find();
   }
 
-  async findOneLast(id:string){
-    const consulta = await this.asistenciaRepository.createQueryBuilder('asistencia')
-    .select(['asistencia', 'a'])
-    .where('d.iduser = :id', { id }) // consulta chida
-    .leftJoin('asistencia.asignatura', 'a')
-    .leftJoin('a.docente', 'd')
-    .leftJoin('d.iduser', 'u')
-    .limit(1)
-    .orderBy('asistencia.id','DESC')
-    .getMany();
-    return consulta
+  async findOneLast(id: string) {
+    const consulta = await this.asistenciaRepository
+      .createQueryBuilder('asistencia')
+      .select(['asistencia', 'a'])
+      .where('d.iduser = :id', { id }) // consulta chida
+      .leftJoin('asistencia.asignatura', 'a')
+      .leftJoin('a.docente', 'd')
+      .leftJoin('d.iduser', 'u')
+      .limit(1)
+      .orderBy('asistencia.id', 'DESC')
+      .getMany();
+    return consulta;
   }
 
   async findOne(id: string) {
-
-    const consulta =this.asistenciaRepository.createQueryBuilder('asistencia')
-    .select(['asistencia', 'a','d','u', 'h'])
-    .where('d.iduser = :id', { id }) // consulta chida
-    .leftJoin('asistencia.asignatura', 'a')
-    .leftJoin('a.docente', 'd')
-    .leftJoin('a.hospital', 'h')
-    .leftJoin('d.iduser', 'u')
-    .orderBy('asistencia.id','DESC')
-    .getMany();
-    return consulta
+    const consulta = this.asistenciaRepository
+      .createQueryBuilder('asistencia')
+      .select(['asistencia', 'a', 'd', 'u', 'h'])
+      .where('d.iduser = :id', { id }) // consulta chida
+      .leftJoin('asistencia.asignatura', 'a')
+      .leftJoin('a.docente', 'd')
+      .leftJoin('a.hospital', 'h')
+      .leftJoin('d.iduser', 'u')
+      .orderBy('asistencia.id', 'DESC')
+      .getMany();
+    return consulta;
   }
 
   update(id: number, updateAsistenciaDto: UpdateAsistenciaDto) {
