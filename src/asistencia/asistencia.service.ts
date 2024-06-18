@@ -47,7 +47,6 @@ export class AsistenciaService {
   }
 
   async findAll() {
-    
     return await this.asistenciaRepository.find();
   }
 

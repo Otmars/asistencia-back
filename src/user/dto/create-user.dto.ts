@@ -1,17 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNumber, IsOptional, isNumber } from 'class-validator';
+import {
+  IsEmail,
+  IsEmpty,
+  IsNumber,
+  IsOptional,
+  isNumber,
+} from 'class-validator';
 import { Roles } from '../entities/roles.entity';
 
-
 export class CreateUserDto {
-
   username: string;
-
 
   password: string;
 
-  @ApiProperty({default:1})
-  rol:  Roles;
+  @ApiProperty({ default: 1 })
+  rol: Roles;
 
   @ApiProperty()
   nombres: string;
@@ -23,7 +26,7 @@ export class CreateUserDto {
   apellidoMaterno: string;
 
   @ApiProperty()
-  @IsEmail()
+  @IsEmpty()
   email: string;
 
   @ApiProperty()
@@ -39,6 +42,6 @@ export class CreateUserDto {
   fnacimiento: string;
 
   @IsNumber()
-  @IsOptional(  )
-  ru:number
+  @IsOptional()
+  ru: number;
 }

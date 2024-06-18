@@ -44,7 +44,7 @@ export class User {
   //   @Column({ type: 'int', width: 10 }) //dato de estudiante
   //   ru: string;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'date',nullable:true })
   fnacimiento: string;
 
   @DeleteDateColumn()

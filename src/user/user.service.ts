@@ -22,11 +22,8 @@ export class UserService {
     private jwtService: JwtService, // @InjectRepository(Docente) private docenteRepository: Repository<Docente>,
   ) {}
   async create(createUserDto: CreateUserDto) {
-    const { fnacimiento } = createUserDto;
-    const datofecha = fnacimiento.split('-');
-
-    const nuevapassword =
-      datofecha[2] + '-' + datofecha[1] + '-' + datofecha[0];
+    
+    const nuevapassword = createUserDto.ci.toString()
     // console.log(nuevapassword);
 
     const passCryps = await hash(nuevapassword, 10);
